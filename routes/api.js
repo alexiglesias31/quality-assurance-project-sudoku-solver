@@ -49,6 +49,14 @@ module.exports = function (app) {
       let row = coordinate.charCodeAt(0) - 'A'.charCodeAt(0) + 1
       let column = Number(coordinate[1])
 
+      let pos = 9*(row-1) + column;
+      if(puzzleString[pos-1].match(/\w/)) {
+        res.json({
+          valid: true
+        })
+        return
+      }
+
       let conflict = []
       if(!solver.checkRowPlacement(puzzleString,row,column,value)) {
         conflict.push('row')
